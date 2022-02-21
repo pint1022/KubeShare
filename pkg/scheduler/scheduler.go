@@ -4,8 +4,8 @@ import (
 	"math"
 	"sync"
 
+	kubesharev1 "github.com/pint1022/KubeShare/pkg/apis/kubeshare/v1"
 	corev1 "k8s.io/api/core/v1"
-	kubesharev1 "github.com/NTHU-LSALAB/KubeShare/pkg/apis/kubeshare/v1"
 )
 
 func scheduleSharePod(isGPUPod bool, gpu_request float64, gpu_mem int64, sharepod *kubesharev1.SharePod, nodeList []*corev1.Node, podList []*corev1.Pod, sharePodList []*kubesharev1.SharePod) (string, string) {

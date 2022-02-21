@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/NVIDIA/gpu-monitoring-tools/bindings/go/nvml"
+	"github.com/pint1022/KubeShare/pkg/configclient"
 	"k8s.io/klog"
-	"github.com/NTHU-LSALAB/KubeShare/pkg/configclient"
 )
 
 var (

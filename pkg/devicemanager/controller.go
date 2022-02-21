@@ -25,11 +25,11 @@ import (
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog"
 
-	kubesharev1 "github.com/NTHU-LSALAB/KubeShare/pkg/apis/kubeshare/v1"
-	clientset "github.com/NTHU-LSALAB/KubeShare/pkg/client/clientset/versioned"
-	kubesharescheme "github.com/NTHU-LSALAB/KubeShare/pkg/client/clientset/versioned/scheme"
-	informers "github.com/NTHU-LSALAB/KubeShare/pkg/client/informers/externalversions/kubeshare/v1"
-	listers "github.com/NTHU-LSALAB/KubeShare/pkg/client/listers/kubeshare/v1"
+	kubesharev1 "github.com/pint1022/KubeShare/pkg/apis/kubeshare/v1"
+	clientset "github.com/pint1022/KubeShare/pkg/client/clientset/versioned"
+	kubesharescheme "github.com/pint1022/KubeShare/pkg/client/clientset/versioned/scheme"
+	informers "github.com/pint1022/KubeShare/pkg/client/informers/externalversions/kubeshare/v1"
+	listers "github.com/pint1022/KubeShare/pkg/client/listers/kubeshare/v1"
 )
 
 const controllerAgentName = "kubeshare-controller"

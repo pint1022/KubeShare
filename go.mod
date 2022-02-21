@@ -1,4 +1,4 @@
-module github.com/NTHU-LSALAB/KubeShare
+module github.com/pint1022/KubeShare
 
 go 1.13
 
