@@ -326,7 +326,7 @@ func (c *Controller) createDummyPod(nodeName string, GPUID string) error {
 				Containers: []corev1.Container{
 					corev1.Container{
 						Name:  "sleepforever",
-						Image: "ncy9371/kubeshare-vgpupod:200217232846",
+						Image: "centaurusinfra/kubeshare-vgpupod:latest",
 						Resources: corev1.ResourceRequirements{
 							Requests: corev1.ResourceList{kubesharev1.ResourceNVIDIAGPU: ResourceQuantity1},
 							Limits:   corev1.ResourceList{kubesharev1.ResourceNVIDIAGPU: ResourceQuantity1},

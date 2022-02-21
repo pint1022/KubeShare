@@ -1,14 +1,13 @@
 apiVersion: kubeshare.nthu/v1
 kind: SharePod
 metadata:
-  name: sharepod2
+  name: sharepod1
   annotations:
-    "kubeshare/gpu_request": "0.5" # required if allocating GPU
+    "kubeshare/gpu_request": "0.2" # required if allocating GPU
     "kubeshare/gpu_limit": "1.0" # required if allocating GPU
     "kubeshare/gpu_mem": "1073741824" # required if allocating GPU # 1Gi, in bytes
     "kubeshare/sched_affinity": "red" # optional
-    "kubeshare/sched_anti-affinity": "green" # optional
-    "kubeshare/sched_exclusion": "blue1" # optional
+    "kubeshare/sched_anti-affinity": "green1" # optional
 spec: # PodSpec
   containers:
   - name: cuda

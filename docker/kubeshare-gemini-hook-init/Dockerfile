@@ -5,6 +5,8 @@ FROM nvidia/cuda:10.0-devel AS build
 WORKDIR /tmp/build
 
 RUN apt update && \
+    apt-get install -y libzmq3-dev &&\
+    apt-get install -y libglib2.0-dev &&\
     apt install -y git && \
     git clone https://github.com/NTHU-LSALAB/Gemini.git && cd Gemini && \
     make -C src

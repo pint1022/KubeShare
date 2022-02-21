@@ -2,7 +2,7 @@
 
 FROM ubuntu:18.04 AS build
 
-ENV GOLANG_VERSION 1.13.5
+ENV GOLANG_VERSION 1.17.6
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 

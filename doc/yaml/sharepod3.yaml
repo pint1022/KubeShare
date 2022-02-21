@@ -3,12 +3,18 @@ kind: SharePod
 metadata:
   name: sharepod3
   annotations:
-    "kubeshare/gpu_request": "0.5"
-    "kubeshare/gpu_limit": "1.0"
-    "kubeshare/gpu_mem": "3145728000"
-spec:
-  terminationGracePeriodSeconds: 0
+    "kubeshare/gpu_request": "0.5" # required if allocating GPU
+    "kubeshare/gpu_limit": "1.0" # required if allocating GPU
+    "kubeshare/gpu_mem": "1073741824" # required if allocating GPU # 1Gi, in bytes
+    "kubeshare/sched_affinity": "red" # optional
+    "kubeshare/sched_anti-affinity": "green" # optional
+    "kubeshare/sched_exclusion": "blue2" # optional
+spec: # PodSpec
   containers:
   - name: cuda
-    image: nvidia/cuda:9.0-base
-    command: ["sh", "-c", "nvidia-smi -L; sleep infinity"]
+    image: centaurusinfra/tensorflow:nightly-gpu-jupyter-tfds-profiler
+    command: ["sh", "-c", "sleep infinity"]
+    resources:
+      limits:
+        cpu: "1"
+        memory: "500Mi"
