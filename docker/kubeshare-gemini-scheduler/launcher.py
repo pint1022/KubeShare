@@ -30,9 +30,9 @@ def launch_scheduler():
 
 # Gemini
     cmd = "{} -p {} -f {} -q {} -m {} -w {} -v 1".format(
-        args.schd, cfg_h, args.pod_list, args.base_quota, args.min_quota, args.window
+        args.schd, cfg_h, cfg_t, args.base_quota, args.min_quota, args.window
     )
-    sys.stderr.write("{}\n".format(cmd))    
+    # sys.stderr.write("{}\n".format(cmd))    
     proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1)
     return proc
 
