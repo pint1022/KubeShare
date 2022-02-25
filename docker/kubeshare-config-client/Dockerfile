@@ -13,7 +13,7 @@ COPY . .
 RUN apt update && \
     apt install -y g++ wget make && \
     wget -nv -O - https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz | tar -C /usr/local -xz && \
-    make kubeshare-config-client
+    make DEBUG=1 kubeshare-config-client
 
 FROM debian:stretch-slim
 
@@ -22,4 +22,4 @@ ENV NVIDIA_DRIVER_CAPABILITIES  utility
 
 COPY --from=build /go/src/kubeshare/bin/kubeshare-config-client /usr/bin/kubeshare-config-client
 
-CMD ["kubeshare-config-client", "-alsologtostderr", "-server-ip=kubeshare-device-manager.kube-system.svc:9797", "-v=4"]
+CMD ["kubeshare-config-client", "-alsologtostderr", "-server-ip=kubeshare-device-manager.kube-system.svc:9797", "-v=1"]

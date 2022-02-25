@@ -24,9 +24,15 @@ def launch_scheduler():
     if cfg_h == '':
         cfg_h = os.getcwd()
 
-    cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {}".format(
-        args.schd, cfg_h, cfg_t, args.port, args.base_quota, args.min_quota, args.window
+# Gemini_UM
+    # cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {} -v 1".format(
+    #     args.schd, cfg_h, cfg_h, args.pod_list, args.base_quota, args.min_quota, args.window
+
+# Gemini
+    cmd = "{} -p {} -f {} -q {} -m {} -w {} -v 1".format(
+        args.schd, cfg_h, args.pod_list, args.base_quota, args.min_quota, args.window
     )
+    sys.stderr.write("{}\n".format(cmd))    
     proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1)
     return proc
 
@@ -42,7 +48,7 @@ def update_podmanager(file):
         name, port = lines[i].split()
         name_port = lines[i][:-1]
         if name_port not in podlist:
-            sys.stderr.write("[launcher] pod manager id '{}' port '{}' start running\n".format(name_port, port))
+            sys.stderr.write("[launcher] pod manager id '{}' port '{}' start running {}\n".format(name_port, port, name))
             sys.stderr.flush()
             proc = sp.Popen(
                 shlex.split(args.pmgr),

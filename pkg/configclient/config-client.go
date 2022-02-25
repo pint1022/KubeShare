@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	SchedulerIpPath = "/kubeshare/library/schedulerIP.txt"
-	SchedulerGPUConfigPath = "/kubeshare/scheduler/config/"
+	SchedulerIpPath                = "/kubeshare/library/schedulerIP.txt"
+	SchedulerGPUConfigPath         = "/kubeshare/scheduler/config/"
 	SchedulerGPUPodManagerPortPath = "/kubeshare/scheduler/podmanagerport/"
 
 	SchedulerPodIpEnvName = "KUBESHARE_SCHEDULER_IP"
@@ -105,16 +105,28 @@ func handleRequest(r string) {
 
 	gpu_config_f, err := os.Create(SchedulerGPUConfigPath + UUID)
 	if err != nil {
-		klog.Errorf("Error when create config file on path: %s", SchedulerGPUConfigPath + UUID)
-	}
-	
-	podmanager_port_f, err := os.Create(SchedulerGPUPodManagerPortPath + UUID)
-	if err != nil {
-		klog.Errorf("Error when create config file on path: %s", SchedulerGPUPodManagerPortPath + UUID)
+		klog.Errorf("Error when create config file on path: %s", SchedulerGPUConfigPath+UUID)
 	}
 
-	gpu_config_f.WriteString(fmt.Sprintf("%d\n", strings.Count(podlist, ",")))
-	gpu_config_f.WriteString(strings.ReplaceAll(podlist, ",", "\n"))
+	podmanager_port_f, err := os.Create(SchedulerGPUPodManagerPortPath + UUID)
+	if err != nil {
+		klog.Errorf("Error when create config file on path: %s", SchedulerGPUPodManagerPortPath+UUID)
+	}
+	pod_config := strings.Split(strings.ReplaceAll(podlist, ",", ""), " ")
+	// podname, minutil, maxutil, memlimit := pod_config[0], pod_config[1], pod_config[2], pod_config[3]
+	minutil, maxutil, memlimit := pod_config[1], pod_config[2], pod_config[3]
+	def := strings.Split(pod_config[0], "/")
+	podname := def[1]
+	klog.Infof("pod infor:%s, %s, %s, %s, %s", def, podname, minutil, maxutil, memlimit)
+
+	// gpu_config_f.WriteString(fmt.Sprintf("%d\n", strings.Count(podlist, ",")))
+	// gpu_config_f.WriteString(strings.ReplaceAll(podlist, ",", "\n"))
+	//pod key file
+	gpu_config_f.WriteString(fmt.Sprintf("[%s]\n", podname))
+	gpu_config_f.WriteString(fmt.Sprintf("clientid=%d\n", strings.Count(podlist, ",")))
+	gpu_config_f.WriteString(fmt.Sprintf("MinUtil=%s\n", minutil))
+	gpu_config_f.WriteString(fmt.Sprintf("MaxUtil=%s\n", maxutil))
+	gpu_config_f.WriteString(fmt.Sprintf("MemoryLimit=%s\n", memlimit))
 
 	podmanager_port_f.WriteString(fmt.Sprintf("%d\n", strings.Count(portmap, ",")))
 	podmanager_port_f.WriteString(strings.ReplaceAll(portmap, ",", "\n"))

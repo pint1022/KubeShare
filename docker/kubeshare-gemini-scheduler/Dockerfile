@@ -25,13 +25,14 @@ RUN pip3 install inotify
 
 ENV NVIDIA_VISIBLE_DEVICES      all
 ENV NVIDIA_DRIVER_CAPABILITIES  utility
+RUN apt-get update && apt-get install -y libzmq3-dev
 
 COPY docker/lib/libdl.so.2          /lib
 COPY docker/lib/libnvidia-ml.so.1   /lib
-
 COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher-multigpus.sh /launcher-multigpus.sh
 COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher.py /launcher.py
 COPY --from=build /tmp/build/$GEMINI/bin/gem-schd /gem-schd
-# COPY --from=build /tmp/build/$GEMINI/bin/gem-pmgr /gem-pmgr
+# COPY gem-pmgr /gem-pmgr
+COPY --from=build /tmp/build/$GEMINI/bin/gem-pmgr /gem-pmgr
 
 CMD ["/launcher-multigpus.sh", "/kubeshare/scheduler/config", "/kubeshare/scheduler/podmanagerport"]
