@@ -112,21 +112,21 @@ func handleRequest(r string) {
 	if err != nil {
 		klog.Errorf("Error when create config file on path: %s", SchedulerGPUPodManagerPortPath+UUID)
 	}
-	pod_config := strings.Split(strings.ReplaceAll(podlist, ",", ""), " ")
-	// podname, minutil, maxutil, memlimit := pod_config[0], pod_config[1], pod_config[2], pod_config[3]
-	minutil, maxutil, memlimit := pod_config[1], pod_config[2], pod_config[3]
-	def := strings.Split(pod_config[0], "/")
-	podname := def[1]
-	klog.Infof("pod infor:%s, %s, %s, %s, %s", def, podname, minutil, maxutil, memlimit)
+	// pod_config := strings.Split(strings.ReplaceAll(podlist, ",", ""), " ")
+	// // podname, minutil, maxutil, memlimit := pod_config[0], pod_config[1], pod_config[2], pod_config[3]
+	// minutil, maxutil, memlimit := pod_config[1], pod_config[2], pod_config[3]
+	// def := strings.Split(pod_config[0], "/")
+	// podname := def[1]
+	// klog.Infof("pod infor:%s, %s, %s, %s, %s", def, podname, minutil, maxutil, memlimit)
 
-	// gpu_config_f.WriteString(fmt.Sprintf("%d\n", strings.Count(podlist, ",")))
-	// gpu_config_f.WriteString(strings.ReplaceAll(podlist, ",", "\n"))
+	gpu_config_f.WriteString(fmt.Sprintf("%d\n", strings.Count(podlist, ",")))
+	gpu_config_f.WriteString(strings.ReplaceAll(podlist, ",", "\n"))
 	//pod key file
-	gpu_config_f.WriteString(fmt.Sprintf("[%s]\n", podname))
-	gpu_config_f.WriteString(fmt.Sprintf("clientid=%d\n", strings.Count(podlist, ",")))
-	gpu_config_f.WriteString(fmt.Sprintf("MinUtil=%s\n", minutil))
-	gpu_config_f.WriteString(fmt.Sprintf("MaxUtil=%s\n", maxutil))
-	gpu_config_f.WriteString(fmt.Sprintf("MemoryLimit=%s\n", memlimit))
+	// gpu_config_f.WriteString(fmt.Sprintf("[%s]\n", podname))
+	// gpu_config_f.WriteString(fmt.Sprintf("clientid=%d\n", strings.Count(podlist, ",")))
+	// gpu_config_f.WriteString(fmt.Sprintf("MinUtil=%s\n", minutil))
+	// gpu_config_f.WriteString(fmt.Sprintf("MaxUtil=%s\n", maxutil))
+	// gpu_config_f.WriteString(fmt.Sprintf("MemoryLimit=%s\n", memlimit))
 
 	podmanager_port_f.WriteString(fmt.Sprintf("%d\n", strings.Count(portmap, ",")))
 	podmanager_port_f.WriteString(strings.ReplaceAll(portmap, ",", "\n"))
