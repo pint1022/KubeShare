@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: kube-mnist
+  name: kube-rn50
 spec:
   containers:
   - name: tf-mnist-1gpu
     image: centaurusinfra/tf-onegpu-mnist:latest
     workingDir: /tmp/test
-    command: ["sh", "-c", "python3 mnist.py"]
+    command: ["sh", "-c", "python3 tf-cf-rn50-pack.py"]
   restartPolicy: OnFailure

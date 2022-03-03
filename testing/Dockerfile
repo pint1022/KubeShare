@@ -10,4 +10,4 @@ RUN pip install -U tensorboard_plugin_profile
 WORKDIR /tmp/test
 
 COPY mnist.py . 
-CMD ["sh", "-c", "python3 /tmp/test/mnist.py"]
+COPY tf-cf-rn50-pack.py . 
