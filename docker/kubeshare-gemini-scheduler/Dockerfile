@@ -6,7 +6,7 @@ WORKDIR /tmp/build
 
 COPY . kubeshare
 USER root
-ARG GEMINI=Gemini
+ARG GEMINI=Gemini_UM
 ENV DEBIAN_FRONTEND=noninteractive 
 
 RUN apt-get update && apt-get install -y \
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     make DEBUG=1 -C src
 
 FROM python:3.9.1-buster
-ARG GEMINI=Gemini
+ARG GEMINI=Gemini_UM
 
 RUN pip3 install inotify
 

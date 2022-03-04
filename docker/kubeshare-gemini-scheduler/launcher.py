@@ -12,7 +12,7 @@ podlist = {}
 
 def prepare_env(name, port, schd_port):
     client_env = os.environ.copy()
-    client_env['SCHEDULER_IP'] = '0.0.0.0'
+    client_env['SCHEDULER_IP'] = '127.0.0.1'
     client_env['SCHEDULER_PORT'] = str(schd_port)
     client_env['POD_MANAGER_IP'] = '0.0.0.0'
     client_env['POD_MANAGER_PORT'] = str(port)
@@ -26,13 +26,13 @@ def launch_scheduler():
 
 # Gemini_UM
     cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {} -v 1".format(
-        args.schd, cfg_h, cfg_t, args.pod_list, args.base_quota, args.min_quota, args.window
+        args.schd, cfg_h, cfg_t, args.port, args.base_quota, args.min_quota, args.window)
 
 # Gemini
     # cmd = "{} -p {} -f {} -q {} -m {} -w {} -v 1".format(
     #     args.schd, cfg_h, cfg_t, args.base_quota, args.min_quota, args.window
     # )
-    # sys.stderr.write("{}\n".format(cmd))    
+    sys.stderr.write("{}\n".format(cmd))    
     proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1)
     return proc
 
