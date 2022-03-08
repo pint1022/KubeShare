@@ -434,7 +434,7 @@ func (c *Controller) handleObject(obj interface{}) {
 					}
 					nodesInfoMux.Unlock()
 					if needSetUUID {
-						klog.Infof("Start go routine to get UUID from dummy Pod")
+						klog.Infof("Start go routine to get UUID from dummy Pod %s", pod.ObjectMeta.Name)
 						go c.getAndSetUUIDFromDummyPod(pod.Spec.NodeName, gpuid, pod.ObjectMeta.Name, pod)
 					}
 				} else {

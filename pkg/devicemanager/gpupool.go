@@ -308,7 +308,7 @@ func (c *Controller) createDummyPod(nodeName string, GPUID string) error {
 	podName := fmt.Sprintf("%s-%s-%s", kubesharev1.KubeShareDummyPodName, nodeName, GPUID)
 
 	createit := func() error {
-		klog.Infof("ERICYEH: creating dummy pod: %s", podName)
+		klog.Infof("ERICYEH: creating dummy pod: %s, gpuid %s", podName, GPUID)
 		// create a pod for dummy gpu then waiting for running, and get its gpu deviceID
 		createdPod, err := c.kubeclientset.CoreV1().Pods("kube-system").Create(&corev1.Pod{
 			ObjectMeta: metav1.ObjectMeta{
@@ -418,7 +418,7 @@ func (c *Controller) getAndSetUUIDFromDummyPod(nodeName, GPUID, podName string, 
 	PodList := nodesInfo[nodeName].GPUID2GPU[GPUID].PodList
 	klog.Infof("After dummy Pod created, PodList Len: %d", PodList.Len())
 	for k := PodList.Front(); k != nil; k = k.Next() {
-		klog.Infof("Add MtgpuPod back to queue then process: %s", k.Value)
+		klog.Infof("Add MtgpuPod back to queue then process:", k.Value)
 		c.workqueue.Add(k.Value.(*PodRequest).Key)
 	}
 
