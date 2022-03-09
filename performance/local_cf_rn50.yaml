@@ -1,0 +1,24 @@
+apiVersion: kubeshare.nthu/v1
+kind: SharePod
+metadata:
+  name: cfresnet50
+  annotations:
+    "kubeshare/gpu_request": "0.3"
+    "kubeshare/gpu_limit": "0.5"
+    "kubeshare/gpu_mem": "3145728000"
+    "kubeshare/sched_affinity": "red" # optional
+spec:
+  terminationGracePeriodSeconds: 0
+  containers:
+  - name: centaurusinfra
+    image: centaurusinfra/tensorflow:nightly-gpu-jupyter-tfds-profiler
+    workingDir: /root/test
+    command: ["sh", "-c", "cd /root/test; python tf-cf-rn50-pack.py"]
+    volumeMounts:
+      - name: bin
+        mountPath: /root/test
+  volumes:
+    - name: bin
+      hostPath:
+         path: /home/steven/dev/tf_experiments
+  restartPolicy: OnFailure
