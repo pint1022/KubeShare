@@ -8,4 +8,8 @@ spec:
     image: centaurusinfra/tf-onegpu-mnist:latest
     workingDir: /tmp/test
     command: ["sh", "-c", "python3 mnist.py"]
+    args:
+    - "-e NVIDIA_VISIBLE_DEVICES=7"
+    - "--ipc=host"
+    - "--gpus all"
   restartPolicy: OnFailure

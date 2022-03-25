@@ -1,4 +1,4 @@
-TARGET=kubeshare-scheduler kubeshare-device-manager kubeshare-config-client
+TARGET=kubeshare-scheduler kubeshare-device-manager kubeshare-config-client pf-exporter
 GO=go
 GO_MODULE=GO111MODULE=on
 BIN_DIR=bin/
@@ -10,7 +10,7 @@ PACKAGE_PREFIX=github.com/pint1022/KubeShare/cmd/
 
 all: $(TARGET)
 
-kubeshare-device-manager kubeshare-scheduler:
+kubeshare-device-manager kubeshare-scheduler pf-exporter:
 	$(GO_MODULE) $(ALPINE_COMPILE_FLAGS) $(GO) build -o $(BIN_DIR)$@ $(PACKAGE_PREFIX)$@
 
 kubeshare-config-client:
