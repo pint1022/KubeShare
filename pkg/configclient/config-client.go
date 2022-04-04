@@ -75,6 +75,9 @@ func registerDevices(conn net.Conn) {
 		buf.WriteString(":")
 		buf.WriteString(strconv.FormatUint(*(d.Memory), 10))
 		buf.WriteString(",")
+
+		klog.Infof("create sampling folder: %s", SchedulerGPUConfigPath+"d_"+d.UUID)
+		os.MkdirAll(SchedulerGPUConfigPath+"d_"+d.UUID, os.ModePerm)
 	}
 	buf.WriteString("\n")
 	klog.Infof("Registering nvidia device to server in registerDevices(), msg: %s", buf.String())
@@ -90,6 +93,18 @@ func recvRequest(reader *bufio.Reader) {
 		}
 		handleRequest(string(requestMess[:len(requestMess)-1]))
 	}
+}
+
+// exists returns whether the given file or directory exists
+func exists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
 }
 
 func handleRequest(r string) {
@@ -135,6 +150,7 @@ func handleRequest(r string) {
 	podmanager_port_f.Sync()
 	gpu_config_f.Close()
 	podmanager_port_f.Close()
+
 }
 
 func sendHeartbeat(conn net.Conn, tick <-chan time.Time) error {

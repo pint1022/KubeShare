@@ -3,8 +3,8 @@ kind: SharePod
 metadata:
   name: localtf
   annotations:
-    "kubeshare/gpu_request": "0.4"
-    "kubeshare/gpu_limit": "0.8"
+    "kubeshare/gpu_request": "0.3"
+    "kubeshare/gpu_limit": "0.5"
     "kubeshare/gpu_mem": "3145728000"
     "kubeshare/sched_affinity": "red" # optional
     "kubeshare/sched_anti-affinity": "green" # optional

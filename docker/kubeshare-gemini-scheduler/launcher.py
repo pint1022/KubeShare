@@ -10,13 +10,15 @@ import time
 args = None
 podlist = {}
 
-def prepare_env(name, port, schd_port):
+def prepare_env(name, port, schd_port, sampling):
     client_env = os.environ.copy()
     client_env['SCHEDULER_IP'] = '127.0.0.1'
     client_env['SCHEDULER_PORT'] = str(schd_port)
     client_env['POD_MANAGER_IP'] = '0.0.0.0'
     client_env['POD_MANAGER_PORT'] = str(port)
     client_env['POD_NAME'] = name
+    client_env['SAMPLING_RATE'] = sampling
+
     return client_env
 
 def launch_scheduler():
@@ -25,8 +27,8 @@ def launch_scheduler():
         cfg_h = os.getcwd()
 
 # Gemini_UM
-    cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {} -v 1".format(
-        args.schd, cfg_h, cfg_t, args.port, args.base_quota, args.min_quota, args.window)
+    cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {} -s {} -v 1".format(
+        args.schd, cfg_h, cfg_t, args.port, args.base_quota, args.min_quota, args.window, args.sampling)
 
 # Gemini
     # cmd = "{} -p {} -f {} -q {} -m {} -w {} -v 1".format(
@@ -81,6 +83,7 @@ def main():
     parser.add_argument('--base_quota', type=float, default=300, help='base quota (ms)')
     parser.add_argument('--min_quota', type=float, default=20, help='minimum quota (ms)')
     parser.add_argument('--window', type=float, default=10000, help='time window (ms)')
+    parser.add_argument('--sampling', type=int, default=1000, help='sampling rate (ms)')
     args = parser.parse_args()
 
     launch_scheduler()
