@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: ksmnist
+  labels:
+    app: mnist
+    tier: pftest
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: pftest
+  template:
+    metadata:
+      labels:
+        tier: pftest
+    spec:
+      containers:
+      - name: tf-mnist
+        workingDir: /root/test
+        image: centaurusinfra/tf-onegpu-mnist:latest
