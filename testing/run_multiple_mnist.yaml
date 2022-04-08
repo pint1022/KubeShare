@@ -18,5 +18,5 @@ spec:
     spec:
       containers:
       - name: tf-mnist
-        workingDir: /root/test
         image: centaurusinfra/tf-onegpu-mnist:latest
+        command: ["sh", "-c", "python3 mnist.py"]
