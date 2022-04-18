@@ -63,5 +63,6 @@ spec:
   restartPolicy: Never
   containers:
   - name: kubeshare-scheduler
-    image: centaurusinfra/kubeshare-scheduler:latest
+    # image: centaurusinfra/kubeshare-scheduler:latest
+    image: centaurusinfra/kubeshare-scheduler:04182022
 
