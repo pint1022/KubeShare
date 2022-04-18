@@ -17,7 +17,7 @@ def prepare_env(name, port, schd_port, sampling):
     client_env['POD_MANAGER_IP'] = '0.0.0.0'
     client_env['POD_MANAGER_PORT'] = str(port)
     client_env['POD_NAME'] = name
-    client_env['SAMPLING_RATE'] = sampling
+    client_env['SAMPLING_RATE'] = str(sampling)
 
     return client_env
 
@@ -29,6 +29,8 @@ def launch_scheduler():
 # Gemini_UM
     cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {} -s {} -v 1".format(
         args.schd, cfg_h, cfg_t, args.port, args.base_quota, args.min_quota, args.window, args.sampling)
+    # cmd = "{} -p {} -f {} -P {} -q {} -m {} -w {} -v 1".format(
+    #     args.schd, cfg_h, cfg_t, args.port, args.base_quota, args.min_quota, args.window)
 
 # Gemini
     # cmd = "{} -p {} -f {} -q {} -m {} -w {} -v 1".format(
@@ -54,7 +56,7 @@ def update_podmanager(file):
             sys.stderr.flush()
             proc = sp.Popen(
                 shlex.split(args.pmgr),
-                env=prepare_env(name, port, args.port),
+                env=prepare_env(name, port, args.port, args.sampling),
                 preexec_fn=os.setpgrp,
             )
             podlist[name_port] = [True, proc]
