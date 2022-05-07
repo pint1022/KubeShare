@@ -16,15 +16,25 @@ function trap_ctrlc ()
     exit 0
 }
 
+
 trap "trap_ctrlc" 2
 
 port=49901
 
-for gpu in $(nvidia-smi --format=csv,noheader --query-gpu=uuid); do
+# def launch_exporter():
+#     cmd = "{} -p {} -v 1".format(/alnr-exporter,port)
+
+#     sys.stderr.write("{}\n".format(cmd))    
+#     proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1)
+#     return proc
+gpu_list=$(nvidia-smi --format=csv,noheader --query-gpu=uuid)
+for gpu in $gpu_list; do
     echo 0 > $1/$gpu
     python3 /launcher.py /gem-schd /gem-pmgr $gpu $1/$gpu $2 --port $port 1>&2 &
     pids="$pids $!"
     port=$(($port+1))
 done
+
+# launch_exporter()
 
 wait
