@@ -21,12 +21,6 @@ trap "trap_ctrlc" 2
 
 port=49901
 
-# def launch_exporter():
-#     cmd = "{} -p {} -v 1".format(/alnr-exporter,port)
-
-#     sys.stderr.write("{}\n".format(cmd))    
-#     proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1)
-#     return proc
 gpu_list=$(nvidia-smi --format=csv,noheader --query-gpu=uuid)
 for gpu in $gpu_list; do
     echo 0 > $1/$gpu
@@ -35,6 +29,8 @@ for gpu in $gpu_list; do
     port=$(($port+1))
 done
 
-# launch_exporter()
+port=60018
+python3 /launcher_alnr.py /alnr $1 "$gpu_list" --port $port 1>&2 &
+
 
 wait
