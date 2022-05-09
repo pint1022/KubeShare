@@ -18,10 +18,14 @@ alnr_pid = 0
 #     return client_env
 
 def launch_alnr():
-    cmd = "{} -d {} -P {} -G {} -s {} -v 1".format(
-        args.alnr,  args.port, args.gpu_list, args.dir, args.sampling)
+    cmd = "{} -d {} -P {} -G {} -s {} -v 1 ".format(
+        args.alnr,  args.dir, args.port,  args.gpu_list, args.sampling)
     sys.stderr.write("{}\n".format(cmd))    
-    proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1)
+    proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1, stdout=sp.PIPE)
+    while True:
+        line = proc.stdout.readline() # returns bytes
+        if ready_string in line:
+           break  
     return proc
 
 
@@ -44,7 +48,7 @@ if __name__ == '__main__':
     try:
         main()
     except:
-        sys.stderr.write("Catch exception: {}\n".format(sys.exc_info()))
+        sys.stderr.write("Launcher catch exception: {}\n".format(sys.exc_info()))
         sys.stderr.flush()
     finally:
         os.killpg(0, signal.SIGKILL)
