@@ -38,9 +38,9 @@ def main():
     parser.add_argument('--port', type=int, default=60018, help='base port of the server')
     parser.add_argument('--sampling', type=int, default=1000, help='sampling rate (ms)')
     args = parser.parse_args()
+    sys.stderr.write(f"[launcher] alnair server started on 0.0.0.0:{args.port}\n")
     alnr_pid = launch_alnr()
 
-    sys.stderr.write(f"[launcher] alnair server started on 0.0.0.0:{args.port}\n")
     sys.stderr.flush()
 
 if __name__ == '__main__':

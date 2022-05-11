@@ -79,8 +79,8 @@ spec:
   restartPolicy: Always
   containers:
   - name: kubeshare-device-manager
-    # image: centaurusinfra/kubeshare-device-manager:latest
-    image: centaurusinfra/kubeshare-device-manager:04182022
+    image: centaurusinfra/kubeshare-device-manager:latest
+    # image: centaurusinfra/kubeshare-device-manager:04182022
 
 ---
 
@@ -108,15 +108,15 @@ spec:
       initContainers:
       - name: gemini-hook-init
         # image: ncy9371/kubeshare-gemini-hook-init:20200429135835
-        # image: centaurusinfra/kubeshare-gemini-hook-init:latest
-        image: centaurusinfra/kubeshare-gemini-hook-init:04182022
+        image: centaurusinfra/kubeshare-gemini-hook-init:latest
+        # image: centaurusinfra/kubeshare-gemini-hook-init:04182022
         volumeMounts:
         - name: "kubeshare-library"
           mountPath: /kubeshare/library
-      containers:
+      containers:      
       - name: config-client
-        # image: centaurusinfra/kubeshare-config-client:latest
-        image: centaurusinfra/kubeshare-config-client:04182022
+        image: centaurusinfra/kubeshare-config-client:latest
+        # image: centaurusinfra/kubeshare-config-client:04182022
         env:
         - name: KUBESHARE_SCHEDULER_IP
           valueFrom:
@@ -129,8 +129,8 @@ spec:
           mountPath: "/kubeshare/library"
       - name: gemini-scheduler
         # image: ncy9371/kubeshare-gemini-scheduler:20200429135835
-        # image: centaurusinfra/kubeshare-gemini-scheduler:latest
-        image: centaurusinfra/kubeshare-gemini-scheduler:04182022
+        image: centaurusinfra/kubeshare-gemini-scheduler:latest
+        # image: centaurusinfra/kubeshare-gemini-scheduler:04182022
         volumeMounts:
         - name: "kubeshare-scheduler"
           mountPath: "/kubeshare/scheduler"
