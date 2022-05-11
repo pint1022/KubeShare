@@ -27,7 +27,7 @@ ENV NVIDIA_VISIBLE_DEVICES      all
 ENV NVIDIA_DRIVER_CAPABILITIES  utility
 RUN apt-get update && apt-get install -y libzmq3-dev
 
-COPY --from=build /tmp/build/kubeshare/docker/alnr-exporter/launcher-multigpus.sh /launcher-multigpus.sh
+COPY --from=build /tmp/build/kubeshare/docker/alnr-exporter/run-multigpus.sh /run-multigpus.sh
 COPY --from=build /tmp/build/kubeshare/docker/alnr-exporter/launcher_alnr.py /launcher_alnr.py
 COPY --from=build /tmp/build/$GEMINI/bin/alnr /alnr
 

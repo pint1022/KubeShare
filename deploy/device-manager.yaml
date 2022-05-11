@@ -113,7 +113,19 @@ spec:
         volumeMounts:
         - name: "kubeshare-library"
           mountPath: /kubeshare/library
-      containers:      
+      containers:
+      - name: alnair-exporter
+        image: centaurusinfra/alnair-node-daemon:latest
+        env:
+        - name: EXPORTER_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        volumeMounts:
+        - name: "kubeshare-scheduler"
+          mountPath: "/kubeshare/scheduler"
+        - name: "kubeshare-library"
+          mountPath: "/kubeshare/library"      
       - name: config-client
         image: centaurusinfra/kubeshare-config-client:latest
         # image: centaurusinfra/kubeshare-config-client:04182022
