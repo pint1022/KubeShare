@@ -507,6 +507,14 @@ func newPod(sharepod *kubesharev1.SharePod, isGPUPod bool, podManagerIP string, 
 					Value: fmt.Sprintf("%d", podManagerPort),
 				},
 				corev1.EnvVar{
+					Name:  "EXPORTER_IP",
+					Value: podManagerIP,
+				},
+				corev1.EnvVar{
+					Name:  "EXPORTER_PORT",
+					Value: fmt.Sprintf("%d", podManagerPort),
+				},
+				corev1.EnvVar{
 					Name:  "POD_NAME",
 					Value: fmt.Sprintf("%s/%s", sharepod.ObjectMeta.Namespace, sharepod.ObjectMeta.Name),
 				},
