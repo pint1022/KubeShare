@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: alnr-daemon
+  namespace: kube-system
+  labels:
+    lsalab: alnr-daemon
+spec:
+  selector:
+    matchLabels:
+      lsalab: alnr-daemon
+  template:
+    metadata:
+      labels:
+        lsalab: alnr-daemon
+    spec:
+      terminationGracePeriodSeconds: 0
+      restartPolicy: Always
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: exporter
+        image: centaurusinfra/alnair-exporter:latest
+        volumeMounts:
+        - name: "kubesare-scheduler"
+          mountPath: "/kubesare/scheduler"
+        - name: "kubesare-library"
+          mountPath: "/kubesare/library"
+        volumeMounts:
+        - name: "kubesare-scheduler"
+          mountPath: "/kubesare/scheduler"
+      volumes:
+      - name: "kubesare-scheduler"
+        hostPath:
+          path: "/kubesare/scheduler"
+      - name: "kubesare-library"
+        hostPath:
+          path: "/kubesare/library"

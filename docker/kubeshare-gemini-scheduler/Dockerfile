@@ -33,10 +33,8 @@ COPY docker/lib/libdl.so.2          /lib
 COPY docker/lib/libnvidia-ml.so.1   /lib
 COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher-multigpus.sh /launcher-multigpus.sh
 COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher.py /launcher.py
-COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher_alnr.py /launcher_alnr.py
 COPY --from=build /tmp/build/$GEMINI/bin/gem-schd /gem-schd
 # COPY gem-pmgr /gem-pmgr
 COPY --from=build /tmp/build/$GEMINI/bin/gem-pmgr /gem-pmgr
-COPY --from=build /tmp/build/$GEMINI/bin/alnr /alnr
 
 CMD ["/launcher-multigpus.sh", "/kubeshare/scheduler/config", "/kubeshare/scheduler/podmanagerport"]
