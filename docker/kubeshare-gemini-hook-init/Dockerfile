@@ -4,7 +4,11 @@ FROM centaurusinfra/pytorch-gpu-devel:latest AS build
 
 WORKDIR /tmp/build
 USER root
+# COPY . kubeshare
+
+
 ENV DEBIAN_FRONTEND=noninteractive 
+ENV CU_HOOK_DEBUG=1
 ARG GEMINI=Gemini_UM
 
 RUN apt update && \

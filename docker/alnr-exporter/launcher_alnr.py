@@ -24,7 +24,7 @@ def launch_alnr():
     proc = sp.Popen(shlex.split(cmd), universal_newlines=True, bufsize=1, stdout=sp.PIPE)
     while True:
         line = proc.stdout.readline() # returns bytes
-        if ready_string in line:
+        if "ready_string" in line:
            break  
     return proc
 
