@@ -10,7 +10,7 @@ import time
 args = None
 podlist = {}
 
-def prepare_env(name, port, schd_port, sampling):
+def prepare_env(name, port, schd_port, sampling, uuid):
     client_env = os.environ.copy()
     client_env['SCHEDULER_IP'] = '127.0.0.1'
     client_env['SCHEDULER_PORT'] = str(schd_port)
@@ -18,6 +18,7 @@ def prepare_env(name, port, schd_port, sampling):
     client_env['POD_MANAGER_PORT'] = str(port)
     client_env['POD_NAME'] = name
     client_env['SAMPLING_RATE'] = str(sampling)
+    client_env['UUID'] = uuid
 
     return client_env
 
@@ -56,7 +57,7 @@ def update_podmanager(file):
             sys.stderr.flush()
             proc = sp.Popen(
                 shlex.split(args.pmgr),
-                env=prepare_env(name, port, args.port, args.sampling),
+                env=prepare_env(name, port, args.port, args.sampling, args.gpu_uuid),
                 preexec_fn=os.setpgrp,
             )
             podlist[name_port] = [True, proc]
